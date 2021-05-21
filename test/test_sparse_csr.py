@@ -324,7 +324,6 @@ class TestSparseCSR(TestCase):
         _test_spadd_shape(10, [1, 100])
 
     @coalescedonoff
-    @onlyCPU
     @dtypes(torch.double)
     def test_coo_to_csr_convert(self, device, dtype, coalesced):
         size = (5, 5)
@@ -379,7 +378,6 @@ class TestSparseCSR(TestCase):
         with self.assertRaisesRegex(RuntimeError, "Only 2D"):
             sparse = dense.to_sparse_csr()
 
-    @onlyCPU
     @dtypes(torch.float, torch.double)
     def test_csr_matvec(self, device, dtype):
         side = 100
@@ -396,7 +394,6 @@ class TestSparseCSR(TestCase):
             with self.assertRaisesRegex(RuntimeError, "mv: expected"):
                 csr.matmul(bad_vec)
 
-    @onlyCPU
     @dtypes(torch.double)
     def test_mm(self, device, dtype):
         def test_shape(di, dj, dk, nnz):
